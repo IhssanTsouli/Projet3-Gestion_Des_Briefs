@@ -10,7 +10,7 @@ class Brief extends Model
     use HasFactory;
     protected $table='briefs';
     protected $fillable=['NomBrief','DateLivraison','DateRecuperation'];
-    public function brief(){
-        return $this->hasMany(Brief::class);
+    public function tache(){
+        return $this->hasMany(Tache::class);
     }
 }

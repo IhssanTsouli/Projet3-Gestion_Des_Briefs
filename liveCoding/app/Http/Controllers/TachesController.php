@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Tache;
 
 use Illuminate\Http\Request;
 
@@ -13,7 +14,7 @@ class TachesController extends Controller
      */
     public function index()
     {
-        //
+       
     }
 
     /**
@@ -21,9 +22,11 @@ class TachesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+         $id=$request->input('brief_id');
+      
+        return view('pages.createT',compact('id'));
     }
 
     /**
@@ -34,7 +37,16 @@ class TachesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $tache=Tache::create([
+            'NomTache'=>$request->NomTache,
+            'DateDebut'=>$request->DateDebut,
+            'DateFin'=>$request->DateFin,
+            'Description'=>$request->Description,
+            'brief_id'=>$request->briefs_id
+        ]);
+        
+        return redirect('gestionbriefs/'.$request->briefs_id."/edit");
+    
     }
 
     /**
@@ -56,7 +68,9 @@ class TachesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $tache=Tache::find($id);
+        return view('pages.updateT',['taches'=>$tache]);
+
     }
 
     /**
@@ -68,7 +82,14 @@ class TachesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $tache=Tache::findOrFail($id);
+        $tache->NomTache=$request->input('NomTache');
+        $tache->DateDebut=$request->input('DateDebut');
+        $tache->DateFin=$request->input('DateFin');
+        $tache->Description=$request->input('Description');
+        $tache->brief_id=$request->input('briefs_id');
+        $tache->save();
+        return redirect('gestionbriefs/'.$request->briefs_id."/edit");
     }
 
     /**
@@ -78,7 +99,10 @@ class TachesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        //
+    { 
+        $sup=Tache::findOrFail($id);
+        
+        $sup->delete();
+        return back();
     }
 }

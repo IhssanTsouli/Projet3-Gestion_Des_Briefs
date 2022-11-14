@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BriefsController;
+use App\Http\Controllers\TachesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,3 +20,10 @@ Route::get('/', function () {
 });
 
 Route::resource('gestionbriefs',BriefsController::class);
+Route::resource('gestiontaches',TachesController::class);
+
+
+Route::get('mytache/createT/{id}',[TachesController::class,'create'])->name('mytache.createT');
+Route::get('mytache/updateT/{id}',[TachesController::class,'edit'])->name('mytacheupdateT');
+
+

@@ -6,9 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
-<body>
-    
-    <input type="text" name='search'>
+<body>  
     <table>
         <thead>
             <tr>
@@ -22,7 +20,15 @@
             <tr> 
                  <td>{{ $value->NomBrief}}</td>
                  <td> {{ $value->DateLivraison}}</td>
-                 <td>{{ $value->DateRecuperation}}</td> 
+                 <td>{{ $value->DateRecuperation}}</td>
+                 <td><a href="{{route('gestionbriefs.edit',[$value->id])}}">modifier</a></td>
+                 <td>
+                    <form action="{{route('gestionbriefs.destroy',[$value->id])}}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit">supprimer</button>
+                    </form>
+                </td>
             </tr>
             @endforeach
 

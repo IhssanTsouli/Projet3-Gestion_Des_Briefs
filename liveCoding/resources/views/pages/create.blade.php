@@ -13,7 +13,7 @@
         <input type="text" name='NomBrief'>
         <input type="datetime-Local" name='DateLivraison'>
         <input type="datetime-Local" name='DateRecuperation'>
-        <button type="submit" name='add'>Ajouter</button>
+        <button type="submit" name='add'>Ajouter brief</button>
     </form>
 </body>
 </html>

@@ -65,8 +65,9 @@ class BriefsController extends Controller
      */
     public function edit($id)
     {
-        $brief=Brief::find($id)
-        return view('pages.edit');
+        $taches=Brief::find($id)->tache;
+        $brief=Brief::find($id);
+        return view('pages.update',compact('taches','brief'));
     }
 
     /**
@@ -78,7 +79,12 @@ class BriefsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+        $brief=Brief::findOrFail($id);
+        $brief->NomBrief=$request->input('NomBrief');
+        $brief->DateLivraison=$request->input('DateLivraison');
+        $brief->DateRecuperation=$request->input('DateRecuperation');
+        $brief->save();
+        return redirect()->route('gestionbriefs.index');
     }
 
     /**
@@ -89,6 +95,10 @@ class BriefsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $sup=Brief::findOrFail($id);
+        $sup->delete();
+        return redirect()->route('gestionbriefs.index');
+
+    
     }
 }
